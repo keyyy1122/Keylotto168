@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>คีย์หวยแยกบ้าน 100%</title>
+<title>คีย์หวยแยกบ้าน - เลขขึ้นซ้ายก่อน ใส่ราคาทีเดียว</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Tahoma,sans-serif;background:linear-gradient(90deg,#5f1005,#b85f1e,#5f1005)}
@@ -14,10 +14,10 @@ button{cursor:pointer}
 .sideBtn{width:100%;border:0;border-radius:8px;padding:9px 3px;margin-bottom:8px;color:#fff;font-weight:900}
 .price{background:#9d262b}.view{background:#ff8d24;color:#111}.check{background:#168b50}.limitBtn{background:#1679f2}.clearAll{background:#555}
 .sideTitle{color:#ff8d24;font-size:22px;font-weight:900;border-bottom:2px dashed #ff8d24;padding-bottom:7px}
-.badge{background:#fff;color:#111;border-radius:10px;text-align:center;margin:12px auto;padding:7px;width:90px;font-weight:900}
+.badge{background:#fff;color:#111;border-radius:10px;text-align:center;margin:12px auto;padding:7px;width:92px;font-weight:900}
 .group{margin:16px 0}.groupTitle{display:inline-block;background:#1679f2;color:#fff;border-radius:8px;padding:7px 10px;font-size:15px;font-weight:900;margin-bottom:8px}
-.betRow{display:grid;grid-template-columns:24px 1fr 24px;align-items:center;gap:4px;margin:9px 0;font-size:23px;color:#fff}
-.betRow .num{font-size:26px}.betRow .amt{font-size:12px;color:#ffe176}.betRow button{background:transparent;border:0;color:#fff;font-size:30px;padding:0}
+.draftRow{display:grid;grid-template-columns:24px 1fr 24px;align-items:center;gap:4px;margin:9px 0;font-size:23px;color:#fff}
+.draftRow .num{font-size:26px}.draftRow .amt{font-size:12px;color:#ffe176}.draftRow button{background:transparent;border:0;color:#fff;font-size:30px;padding:0}
 .main{flex:1;padding:10px;overflow:auto}
 .name,.houseSelect{width:100%;border:2px solid #c91f2e;border-radius:8px;padding:11px;text-align:center;font-size:17px;font-weight:900;margin-bottom:8px;background:white}
 .houseSelect{border-color:#1679f2;color:#1679f2}
@@ -29,10 +29,15 @@ button{cursor:pointer}
 .type:active{transform:translateY(6px);box-shadow:0 1px 0 rgba(0,0,0,.35)}
 .type.selected{outline:3px solid #ffcf33;filter:brightness(.92)}
 .red{background:#df3145}.blue{background:#1379f2}.green{background:#168b50}.black{background:#20252d!important}
+.extra{margin-top:12px;background:#bfc4c8;border-radius:8px;padding:9px}
+.extraTitle{color:white;font-weight:900;font-size:18px;margin-bottom:8px}
+.extraGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.extraGrid button{border:0;border-radius:6px;padding:10px;color:white;font-weight:900;font-size:15px}
+.exRed{background:#df3145}.exBlue{background:#1379f2}.exCyan{background:#22c1d6}.exGreen{background:#168b50}.exYellow{background:#ffc107;color:#222!important}
 .panel{margin-top:12px;border:2px solid #ddd;background:#fafafa;padding:10px;text-align:center}
 .panel h3{margin:2px 0 10px;font-size:22px}.chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;min-height:34px}
 .chip{background:#1679f2;color:#fff;border-radius:8px;padding:6px 10px;font-weight:900;font-size:15px}
-.digits{display:flex;justify-content:center;gap:12px;margin:32px 0 15px}
+.digits{display:flex;justify-content:center;gap:12px;margin:30px 0 15px}
 .digit{width:50px;height:58px;border:2px solid #df3145;background:#fff;font-size:29px;font-weight:900;display:flex;align-items:center;justify-content:center}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
 .keypad button{border:2px solid #d52a38;background:#fff;color:#d52a38;border-radius:9px;font-size:20px;font-weight:900;padding:14px 0;box-shadow:0 3px 0 rgba(0,0,0,.18)}
@@ -43,7 +48,7 @@ button{cursor:pointer}
 .saved{margin-top:10px;border:1px solid #ddd;border-radius:8px;padding:8px;background:#fffdf5;font-size:13px}
 .saved h4{margin:0 0 6px;color:#c91f2e}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.58);z-index:99;display:none;align-items:center;justify-content:center;padding:14px}
-.modal.show{display:flex}.box{width:100%;max-width:460px;max-height:90vh;overflow:auto;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.modal.show{display:flex}.box{width:100%;max-width:470px;max-height:90vh;overflow:auto;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .boxHead{height:58px;background:#df242f;color:#fff8d9;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:24px;font-weight:900;position:sticky;top:0;z-index:2}
 .close{border:0;background:transparent;color:#fff8d9;font-size:42px}.boxBody{padding:14px}
 .boxBody input,.boxBody select{width:100%;border:2px solid #ddd;border-radius:8px;padding:13px;text-align:center;font-size:18px;font-weight:900;background:white}
@@ -53,7 +58,11 @@ button{cursor:pointer}
 .modalActions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .modalActions button{border:0;border-radius:8px;color:#fff;padding:13px;font-size:19px;font-weight:900}
 .cancel{background:#df3145}.confirm{background:#168b50}
-.numTag{background:#168b50;color:#fff;padding:10px 15px;border-radius:6px;font-size:26px;font-weight:900}.center{text-align:center;margin-bottom:12px;font-weight:900}
+.priceRows{max-height:390px;overflow:auto;border-top:1px solid #eee;margin-top:8px}
+.priceRow{display:grid;grid-template-columns:34px 54px 1fr 58px;gap:6px;align-items:center;border-bottom:1px solid #eee;padding:7px 0}
+.priceRow .tag{background:#159052;color:white;border-radius:5px;padding:8px 0;text-align:center;font-weight:900}
+.priceRow input{padding:10px!important;font-size:17px!important}
+.eqBox{margin-top:12px;text-align:center;border-top:1px solid #ddd;padding-top:10px}.eqLine{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}
 .slipItem,.limitItem,.houseResult{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #eee;font-size:13px}
 .slipItem button,.limitItem button{border:0;background:#df3145;color:#fff;border-radius:6px;padding:7px 10px;margin-left:4px}
 .resultList,.slipDetail,.limitList{max-height:320px;overflow:auto;border-top:1px solid #ddd;margin-top:10px;font-size:13px}
@@ -108,6 +117,22 @@ button{cursor:pointer}
       <button type="button" class="type blue" data-type="2ตัวกลับ" data-digits="2">2ตัวกลับ <span></span></button>
     </div>
 
+    <section class="extra">
+      <div class="extraTitle">☰ ตัวเลือกเพิ่มเติม</div>
+      <div class="extraGrid">
+        <button type="button" class="exRed">19 ประตู</button>
+        <button type="button" class="exRed">เลขเบิ้ล</button>
+        <button type="button" class="exBlue">รูดหน้า</button>
+        <button type="button" class="exBlue">รูดหลัง</button>
+        <button type="button" class="exCyan">สองตัวต่ำ</button>
+        <button type="button" class="exCyan">สองตัวสูง</button>
+        <button type="button" class="exGreen">สองตัวคี่</button>
+        <button type="button" class="exGreen">สองตัวคู่</button>
+        <button type="button" class="exYellow">พี่น้อง</button>
+        <button type="button" class="exYellow">น้องพี่</button>
+      </div>
+    </section>
+
     <section class="panel">
       <h3>รายการที่เลือก</h3>
       <div class="chips" id="chips"></div>
@@ -118,6 +143,7 @@ button{cursor:pointer}
         <button type="button" data-num="7">7</button><button type="button" data-num="8">8</button><button type="button" data-num="9">9</button>
         <button type="button" id="randomBtn">สุ่มเลข</button><button type="button" data-num="0">0</button><button type="button" id="backBtn" class="black">⌫</button>
       </div>
+      <button type="button" class="action green" id="addDraftBtn">เพิ่มเข้ารายการซ้าย</button>
       <button type="button" class="action" id="openPriceMain">ใส่ราคา</button>
       <button type="button" class="action green" id="openCheckMain">ตรวจผล / กำไรขาดทุน</button>
     </section>
@@ -126,7 +152,8 @@ button{cursor:pointer}
       บ้านปัจจุบัน: <span id="showHouse">บ้านแม่</span><br>
       ชื่อโพย: <span id="showName">-</span><br>
       ยอดขายโพยปัจจุบัน: <span id="sale">0</span> บาท<br>
-      จำนวนรายการ: <span id="count">0</span><br>
+      รายการรอราคา: <span id="draftCountMain">0</span><br>
+      รายการมีราคา: <span id="count">0</span><br>
       ค่าคนหา: <span id="finderFee" class="yellow">0</span> บาท (<span id="finderRate">0</span>%)<br>
       ยอดหลังหักคนหา: <span id="netSale">0</span> บาท<br>
       ยอดจ่ายล่าสุดบ้านนี้: <span id="lastPayout">0</span> บาท<br>
@@ -143,24 +170,26 @@ button{cursor:pointer}
 
 <div class="modal" id="priceModal">
   <div class="box">
-    <div class="boxHead"><div>½ ใส่ราคา</div><button type="button" class="close" id="closePrice">×</button></div>
+    <div class="boxHead"><div>½ ใส่ราคา <span id="modalDraftCount" style="font-size:14px;background:#fff8d9;color:#df242f;border-radius:12px;padding:4px 8px">0 รายการ</span></div><button type="button" class="close" id="closePrice">×</button></div>
     <div class="boxBody">
-      <div class="center">บ้าน <span id="modalHouse">-</span><br>เลข <span class="numTag" id="modalNumber">--</span></div>
-      <div class="row">
-        <input id="straightAmount" type="number" placeholder="ตรง / 3 ตัวบน">
-        <input id="todAmount" type="number" placeholder="โต๊ด">
+      <div class="center">บ้าน <span id="modalHouse">-</span></div>
+      <div class="priceRows" id="priceRows"></div>
+
+      <div class="eqBox">
+        <b>ราคา "เท่ากัน" ทั้งหมด</b>
+        <div class="eqLine">
+          <input id="equalAmount" type="number" placeholder="ใส่ราคา">
+          <button type="button" id="copyEqual" style="border:2px solid #168b50;background:white;color:#168b50;border-radius:8px;font-weight:900;padding:0 14px">คัดลอก</button>
+        </div>
+        <div class="amountBtns">
+          <button type="button" data-amt="5">5</button><button type="button" data-amt="10">10</button><button type="button" data-amt="20">20</button><button type="button" data-amt="50">50</button><button type="button" data-amt="100">100</button>
+        </div>
+        <div class="small">เลขขึ้นซ้ายก่อน แล้วค่อยใส่ราคาทีเดียว</div>
       </div>
-      <div class="row">
-        <input id="topAmount" type="number" placeholder="ยอดบน / 2 ตัวบน">
-        <input id="bottomAmount" type="number" placeholder="ยอดล่าง / 2 ตัวล่าง">
-      </div>
-      <div class="amountBtns">
-        <button type="button" data-amt="5">5</button><button type="button" data-amt="10">10</button><button type="button" data-amt="20">20</button><button type="button" data-amt="50">50</button><button type="button" data-amt="100">100</button>
-      </div>
-      <div class="small">ตรง/โต๊ด/บน/ล่าง แยกยอดกัน เช่น ตรง 30 โต๊ด 20</div>
+
       <div class="modalActions">
         <button type="button" class="cancel" id="cancelPrice">ยกเลิก</button>
-        <button type="button" class="confirm" id="confirmPrice">ใส่ยอดแทง</button>
+        <button type="button" class="confirm" id="confirmPrice">บันทึกราคา</button>
       </div>
     </div>
   </div>
@@ -232,17 +261,17 @@ button{cursor:pointer}
     "บ้านแม่เหน่ง": {"3ตัวบน":500,"3ตัวโต๊ด":100,"2ตัวบน":80,"2ตัวล่าง":80,"6กลับ":100,"2ตัวกลับ":80}
   };
 
-  const K_DATA="lotto_sep_house_data_v1";
-  const K_HOUSE="lotto_sep_house_current_v1";
+  const K_DATA="lotto_left_first_data_v1";
+  const K_HOUSE="lotto_left_first_current_v1";
   let data = JSON.parse(localStorage.getItem(K_DATA) || "{}");
   HOUSES.forEach(h => {
-    if(!data[h]) data[h] = {bets:[], slips:[], limits:[], lastResult:{sale:0,payout:0,fee:0,net:0,rate:0,profit:0}, lastRows:[]};
+    if(!data[h]) data[h] = {drafts:[], bets:[], slips:[], limits:[], lastResult:{sale:0,payout:0,fee:0,net:0,rate:0,profit:0}, lastRows:[]};
+    if(!data[h].drafts) data[h].drafts = [];
   });
 
   let currentHouse = localStorage.getItem(K_HOUSE) || "บ้านแม่";
   let selected = [];
   let number = "";
-  let amountFocus = "top";
 
   const $ = id => document.getElementById(id);
   const priceModal = $("priceModal");
@@ -251,10 +280,7 @@ button{cursor:pointer}
   const slipsModal = $("slipsModal");
   const houseSelect = $("houseSelect");
   const name = $("slipName");
-  const straightAmount = $("straightAmount");
-  const todAmount = $("todAmount");
-  const topAmount = $("topAmount");
-  const bottomAmount = $("bottomAmount");
+  const equalAmount = $("equalAmount");
 
   houseSelect.value = currentHouse;
   houseSelect.onchange = () => {
@@ -268,14 +294,12 @@ button{cursor:pointer}
   };
 
   function state(h=currentHouse){ return data[h]; }
+  function drafts(h=currentHouse){ return state(h).drafts; }
   function bets(h=currentHouse){ return state(h).bets; }
   function slips(h=currentHouse){ return state(h).slips; }
   function limits(h=currentHouse){ return state(h).limits; }
 
-  function saveAll(){
-    localStorage.setItem(K_DATA, JSON.stringify(data));
-    render();
-  }
+  function saveAll(){ localStorage.setItem(K_DATA, JSON.stringify(data)); render(); }
 
   document.querySelectorAll(".type").forEach(btn => {
     btn.onclick = () => {
@@ -297,11 +321,20 @@ button{cursor:pointer}
     renderDigits();
   };
 
+  $("addDraftBtn").onclick = addDrafts;
   $("openPriceSide").onclick = openPrice;
   $("openPriceMain").onclick = openPrice;
   $("closePrice").onclick = closePrice;
   $("cancelPrice").onclick = closePrice;
-  $("confirmPrice").onclick = addPrice;
+  $("confirmPrice").onclick = savePrices;
+  $("copyEqual").onclick = applyEqualAmount;
+
+  document.querySelectorAll("[data-amt]").forEach(btn => {
+    btn.onclick = () => {
+      equalAmount.value = btn.dataset.amt;
+      applyEqualAmount();
+    };
+  });
 
   $("openLimit").onclick = openLimit;
   $("closeLimit").onclick = () => limitModal.classList.remove("show");
@@ -319,6 +352,7 @@ button{cursor:pointer}
 
   $("clearBtn").onclick = () => {
     if(confirm(`ล้างโพยปัจจุบันของ ${currentHouse}?`)){
+      state().drafts = [];
       state().bets = [];
       saveAll();
     }
@@ -334,22 +368,7 @@ button{cursor:pointer}
     }
   };
 
-  straightAmount.onfocus = () => amountFocus = "straight";
-  todAmount.onfocus = () => amountFocus = "tod";
-  topAmount.onfocus = () => amountFocus = "top";
-  bottomAmount.onfocus = () => amountFocus = "bottom";
-  document.querySelectorAll("[data-amt]").forEach(btn => {
-    btn.onclick = () => {
-      if(amountFocus === "bottom") bottomAmount.value = btn.dataset.amt;
-      else if(amountFocus === "top") topAmount.value = btn.dataset.amt;
-      else if(amountFocus === "tod") todAmount.value = btn.dataset.amt;
-      else straightAmount.value = btn.dataset.amt;
-    };
-  });
-
-  function getPay(type, h=currentHouse){
-    return Number(houseRates[h][type] || 0);
-  }
+  function getPay(type, h=currentHouse){ return Number(houseRates[h][type] || 0); }
 
   function updateRateButtons(){
     document.querySelectorAll(".type").forEach(btn => {
@@ -369,10 +388,7 @@ button{cursor:pointer}
     if(selected.some(x => x.digits === 2)) return 2;
     return 1;
   }
-
-  function minDigits(){
-    return selected.length ? Math.min(...selected.map(x => x.digits)) : 0;
-  }
+  function minDigits(){ return selected.length ? Math.min(...selected.map(x => x.digits)) : 0; }
 
   function pressNum(n){
     if(!selected.length) return alert("เลือกเมนูก่อน");
@@ -391,22 +407,6 @@ button{cursor:pointer}
     $("digitBoxes").innerHTML = Array.from({length:len}, (_,i) => `<div class="digit">${number[i] || ""}</div>`).join("");
   }
 
-  function openPrice(){
-    if(!selected.length) return alert("เลือกเมนูก่อน");
-    if(number.length < minDigits()) return alert("กดเลขให้ครบก่อน");
-    $("modalNumber").textContent = number;
-    $("modalHouse").textContent = currentHouse;
-    straightAmount.value = "";
-    todAmount.value = "";
-    topAmount.value = "";
-    bottomAmount.value = "";
-    amountFocus = "straight";
-    priceModal.classList.add("show");
-    setTimeout(() => topAmount.focus(), 80);
-  }
-
-  function closePrice(){ priceModal.classList.remove("show"); }
-
   function perms(str){
     if(!str) return [];
     if(str.length <= 1) return [str];
@@ -418,26 +418,68 @@ button{cursor:pointer}
     return [...new Set(out)];
   }
 
-  function limitKey(type, num){
-    if(type === "หกกลับบน" || type === "หกกลับล่าง"){
-      return type + ":" + perms(num).sort().join("");
+  function makeDraftRowsFromNumber(){
+    const pending = {};
+    function addPending(type, pay, num){
+      const key = type + "_" + num + "_" + pay;
+      if(!pending[key]) pending[key] = {id:String(Date.now()+Math.random()), type,pay,number:num,amount:0};
     }
+
+    selected.forEach(sel => {
+      const n = sel.digits === 2 ? number.slice(-2) : number.slice(0,3);
+      if(n.length < sel.digits) return;
+      if(sel.type === "3ตัวบน") addPending("สามตัวบน",getPay("3ตัวบน"),n);
+      if(sel.type === "3ตัวโต๊ด") addPending("สามตัวโต๊ด",getPay("3ตัวโต๊ด"),n);
+      if(sel.type === "2ตัวบน") addPending("สองตัวบน",getPay("2ตัวบน"),n);
+      if(sel.type === "2ตัวล่าง") addPending("สองตัวล่าง",getPay("2ตัวล่าง"),n);
+      if(sel.type === "2ตัวกลับ"){
+        perms(n).forEach(x => {
+          addPending("สองตัวบน",getPay("2ตัวกลับ"),x);
+          addPending("สองตัวล่าง",getPay("2ตัวกลับ"),x);
+        });
+      }
+      if(sel.type === "6กลับ"){
+        perms(n).forEach(x => {
+          addPending("หกกลับบน",getPay("6กลับ"),x);
+          addPending("หกกลับล่าง",getPay("6กลับ"),x);
+        });
+      }
+    });
+    return Object.values(pending);
+  }
+
+  function addDrafts(){
+    if(!selected.length) return alert("เลือกเมนูก่อน");
+    if(number.length < minDigits()) return alert("กดเลขให้ครบก่อน");
+
+    const rows = makeDraftRowsFromNumber();
+    if(!rows.length) return alert("ไม่มีรายการ");
+
+    rows.forEach(r => {
+      const exist = drafts().find(d => d.type === r.type && d.number === r.number && d.pay === r.pay);
+      if(!exist) drafts().push(r);
+    });
+
+    number = "";
+    renderDigits();
+    saveAll();
+  }
+
+  window.deleteDraftByGroup = (type,num) => {
+    state().drafts = drafts().filter(d => !(d.type === type && d.number === num));
+    saveAll();
+  };
+
+  function limitKey(type, num){
+    if(type === "หกกลับบน" || type === "หกกลับล่าง") return type + ":" + perms(num).sort().join("");
     return type + ":" + num;
   }
 
   function soldAmount(type, num, h=currentHouse){
     const key = limitKey(type, num);
-
-    const currentSold = bets(h)
-      .filter(b => limitKey(b.type, b.number) === key)
-      .reduce((sum,b) => sum + Number(b.amount), 0);
-
-    const sentSold = slips(h)
-      .flatMap(s => s.items || [])
-      .filter(b => limitKey(b.type, b.number) === key)
-      .reduce((sum,b) => sum + Number(b.amount), 0);
-
-    return currentSold + sentSold;
+    const pricedSold = bets(h).filter(b => limitKey(b.type,b.number) === key).reduce((s,b)=>s+Number(b.amount),0);
+    const sentSold = slips(h).flatMap(s => s.items || []).filter(b => limitKey(b.type,b.number) === key).reduce((s,b)=>s+Number(b.amount),0);
+    return pricedSold + sentSold;
   }
 
   function findLimit(type, num, h=currentHouse){
@@ -446,90 +488,85 @@ button{cursor:pointer}
   }
 
   function canAccept(type, num, amount){
-    const limit = findLimit(type, num);
+    const limit = findLimit(type,num);
     if(!limit) return {ok:true};
-    const sold = soldAmount(type, num);
+    const sold = soldAmount(type,num);
     const remain = Number(limit.max) - sold;
     return {ok: amount <= remain, sold, remain, max:Number(limit.max)};
   }
 
-  function addOrMerge(type, pay, num, amount){
-    const check = canAccept(type, num, amount);
+  function addOrMerge(type,pay,num,amount){
+    const check = canAccept(type,num,amount);
     if(!check.ok){
       alert(`${currentHouse}\nเลข ${num} ${type} เกินอั้นแล้ว\nอั้น ${check.max.toLocaleString()} บาท\nซื้อมาแล้ว ${check.sold.toLocaleString()} บาท\nเหลือรับได้ ${Math.max(check.remain,0).toLocaleString()} บาท\nรายการนี้แทง ${amount.toLocaleString()} บาท`);
       return false;
     }
-
     const arr = bets();
     const found = arr.find(b => b.type === type && b.number === num && b.pay === pay);
     if(found) found.amount += amount;
-    else arr.push({id:String(Date.now()+Math.random()), type, pay, number:num, amount, payout:0, win:false});
+    else arr.push({id:String(Date.now()+Math.random()), type,pay,number:num,amount,payout:0,win:false});
     return true;
   }
 
-  function addPrice(){
-    const straight = Number(straightAmount.value || 0);
-    const tod = Number(todAmount.value || 0);
-    const top = Number(topAmount.value || 0);
-    const bottom = Number(bottomAmount.value || 0);
-
-    if(straight <= 0 && tod <= 0 && top <= 0 && bottom <= 0){
-      return alert("ใส่ยอดแทงก่อน");
-    }
-
-    const pending = {};
-    function addPending(type, pay, num, amount){
-      const key = type + "_" + num + "_" + pay;
-      if(!pending[key]) pending[key] = {type,pay,number:num,amount};
-    }
-
-    selected.forEach(sel => {
-      const n = sel.digits === 2 ? number.slice(-2) : number.slice(0,3);
-      if(n.length < sel.digits) return;
-
-      if(sel.type === "3ตัวบน" && straight > 0){
-        addPending("สามตัวบน",getPay("3ตัวบน"),n,straight);
-      }
-
-      if(sel.type === "3ตัวโต๊ด" && tod > 0){
-        addPending("สามตัวโต๊ด",getPay("3ตัวโต๊ด"),n,tod);
-      }
-
-      if(sel.type === "2ตัวบน" && top > 0){
-        addPending("สองตัวบน",getPay("2ตัวบน"),n,top);
-      }
-
-      if(sel.type === "2ตัวล่าง" && bottom > 0){
-        addPending("สองตัวล่าง",getPay("2ตัวล่าง"),n,bottom);
-      }
-
-      if(sel.type === "2ตัวกลับ"){
-        perms(n).forEach(x => {
-          if(top > 0) addPending("สองตัวบน",getPay("2ตัวกลับ"),x,top);
-          if(bottom > 0) addPending("สองตัวล่าง",getPay("2ตัวกลับ"),x,bottom);
-        });
-      }
-
-      if(sel.type === "6กลับ"){
-        perms(n).forEach(x => {
-          if(top > 0) addPending("หกกลับบน",getPay("6กลับ"),x,top);
-          if(bottom > 0) addPending("หกกลับล่าง",getPay("6กลับ"),x,bottom);
-        });
-      }
-    });
-
-    let added = 0;
-    Object.values(pending).forEach(item => { if(addOrMerge(item.type,item.pay,item.number,item.amount)) added++; });
-
-    if(added > 0){
-      number = "";
-      closePrice();
-      saveAll();
-      renderDigits();
-    }
+  function openPrice(){
+    if(!drafts().length) return alert("ยังไม่มีรายการฝั่งซ้าย กดเพิ่มเข้ารายการก่อน");
+    $("modalHouse").textContent = currentHouse;
+    equalAmount.value = "";
+    renderPriceRows();
+    priceModal.classList.add("show");
   }
 
-    function openLimit(){
+  function closePrice(){ priceModal.classList.remove("show"); }
+
+  function renderPriceRows(){
+    $("modalDraftCount").textContent = drafts().length + " รายการ";
+    $("priceRows").innerHTML = drafts().map((r,i) => `
+      <div class="priceRow">
+        <div>${i+1}</div>
+        <div class="tag">${r.number}</div>
+        <div><b>${r.type}</b><br><span style="font-size:12px;color:#1679f2">อัตราจ่าย ${r.pay}</span></div>
+        <input type="number" class="rowAmount" data-i="${i}" value="${r.amount || ""}" placeholder="ราคา">
+      </div>
+    `).join("");
+    document.querySelectorAll(".rowAmount").forEach(inp => {
+      inp.oninput = () => {
+        const i = Number(inp.dataset.i);
+        drafts()[i].amount = Number(inp.value || 0);
+        localStorage.setItem(K_DATA, JSON.stringify(data));
+      };
+    });
+  }
+
+  function applyEqualAmount(){
+    const v = Number(equalAmount.value || 0);
+    if(v <= 0) return alert("ใส่ราคาก่อน");
+    drafts().forEach(r => r.amount = v);
+    renderPriceRows();
+    localStorage.setItem(K_DATA, JSON.stringify(data));
+  }
+
+  function savePrices(){
+    if(!drafts().length) return alert("ไม่มีรายการให้ใส่ราคา");
+    let added = 0;
+    const remainDrafts = [];
+
+    for(const d of drafts()){
+      const amount = Number(d.amount || 0);
+      if(amount > 0){
+        if(addOrMerge(d.type,d.pay,d.number,amount)) added++;
+        else remainDrafts.push(d);
+      }else{
+        remainDrafts.push(d);
+      }
+    }
+
+    if(added <= 0) return alert("ใส่ราคาอย่างน้อย 1 รายการ");
+    state().drafts = remainDrafts;
+    closePrice();
+    saveAll();
+  }
+
+  function openLimit(){
     $("limitHouse").value = currentHouse;
     limitModal.classList.add("show");
     renderLimits();
@@ -542,13 +579,11 @@ button{cursor:pointer}
     const max = Number($("limitMax").value || 0);
     if(!num) return alert("ใส่เลขก่อน");
     if(max <= 0) return alert("ใส่ยอดอั้นก่อน");
-
-    const key = limitKey(type, num);
+    const key = limitKey(type,num);
     const arr = limits(h);
     const old = arr.find(l => l.key === key);
     if(old) old.max = max;
     else arr.push({key,type,number:num,max});
-
     $("limitNumber").value = "";
     $("limitMax").value = "";
     saveAll();
@@ -585,38 +620,30 @@ button{cursor:pointer}
     if(sale >= 10000) return 20;
     return sale > 0 ? 15 : 0;
   }
-
   function commission(sale){
     const rate = finderRate(sale);
     const fee = sale * rate / 100;
     return {rate, fee, net:sale-fee};
   }
-
-  function totalSale(list){ return list.reduce((s,b) => s + Number(b.amount), 0); }
+  function totalSale(list){ return list.reduce((s,b)=>s+Number(b.amount),0); }
 
   function sendSlip(){
-    if(!bets().length) return alert("ยังไม่มีรายการในโพย");
+    if(drafts().length) return alert("ยังมีรายการที่ยังไม่ใส่ราคาอยู่ กดใส่ราคาก่อน");
+    if(!bets().length) return alert("ยังไม่มีรายการที่มีราคาในโพย");
     const no = slips().length + 1;
     const slipName = name.value.trim() || `โพยที่ ${no}`;
     const total = totalSale(bets());
     const com = commission(total);
-
     slips().push({
-      no, name:slipName, total,
-      finderRate:com.rate, finderFee:com.fee, netSale:com.net,
-      date:new Date().toLocaleString("th-TH"),
-      items:JSON.parse(JSON.stringify(bets()))
+      no,name:slipName,total,finderRate:com.rate,finderFee:com.fee,netSale:com.net,
+      date:new Date().toLocaleString("th-TH"),items:JSON.parse(JSON.stringify(bets()))
     });
-
     state().bets = [];
     saveAll();
     alert(`ส่งโพย ${currentHouse} ที่ ${no} แล้ว\nยอดขาย ${total.toLocaleString()} บาท`);
   }
 
-  function openCheck(){
-    checkModal.classList.add("show");
-    renderCheck();
-  }
+  function openCheck(){ checkModal.classList.add("show"); renderCheck(); }
 
   function checkResult(){
     const result3 = $("result3").value.trim();
@@ -629,7 +656,6 @@ button{cursor:pointer}
       const savedItems = slips(h).flatMap(s => (s.items||[]).map(item => ({...item, slipNo:s.no, slipName:s.name})));
       const currentItems = bets(h).map(item => ({...item, slipNo:"ยังไม่ส่ง", slipName:"โพยปัจจุบัน"}));
       const all = [...savedItems,...currentItems];
-
       let sale = 0, payout = 0;
       const rows = [];
       all.forEach(b => {
@@ -641,20 +667,14 @@ button{cursor:pointer}
         if(b.type === "สองตัวล่าง" && b.number === bottom2) win = true;
         if(b.type === "หกกลับบน" && b.number === result3) win = true;
         if(b.type === "หกกลับล่าง" && b.number === bottom2) win = true;
-
         const row = {...b, house:h, win, payout: win ? Number(b.amount)*Number(b.pay) : 0};
         payout += row.payout;
         rows.push(row);
       });
-
       const com = commission(sale);
-      state(h).lastResult = {
-        sale,payout,fee:com.fee,net:com.net,rate:com.rate,profit:com.net-payout,
-        result3,bottom2,date:new Date().toLocaleString("th-TH")
-      };
+      state(h).lastResult = {sale,payout,fee:com.fee,net:com.net,rate:com.rate,profit:com.net-payout,result3,bottom2,date:new Date().toLocaleString("th-TH")};
       state(h).lastRows = rows;
     });
-
     saveAll();
     renderCheck();
   }
@@ -663,15 +683,7 @@ button{cursor:pointer}
     $("checkHouseSummary").innerHTML = HOUSES.map(h => {
       const r = state(h).lastResult || {};
       const profit = Number(r.profit || 0);
-      return `<div class="houseResult">
-        <div>
-          <b>${h}</b><br>
-          ยอดขาย ${Number(r.sale||0).toLocaleString()} | หัก ${Number(r.fee||0).toLocaleString()} (${r.rate||0}%)<br>
-          ยอดหลังหัก ${Number(r.net||0).toLocaleString()} | จ่าย ${Number(r.payout||0).toLocaleString()}<br>
-          <span class="${profit>=0?'profit':'loss'}">กำไร/ขาดทุน ${profit.toLocaleString()}</span>
-        </div>
-        <div></div>
-      </div>`;
+      return `<div class="houseResult"><div><b>${h}</b><br>ยอดขาย ${Number(r.sale||0).toLocaleString()} | หัก ${Number(r.fee||0).toLocaleString()} (${r.rate||0}%)<br>ยอดหลังหัก ${Number(r.net||0).toLocaleString()} | จ่าย ${Number(r.payout||0).toLocaleString()}<br><span class="${profit>=0?'profit':'loss'}">กำไร/ขาดทุน ${profit.toLocaleString()}</span></div><div></div></div>`;
     }).join("");
 
     const allRows = HOUSES.flatMap(h => (state(h).lastRows||[]).map(r => ({...r, house:h})));
@@ -679,8 +691,7 @@ button{cursor:pointer}
       <div style="padding:7px;border-bottom:1px solid #eee" class="${b.win ? 'win' : 'lose'}">
         ${b.house} | โพย ${b.slipNo} | ${b.type} ${b.number} แทง ${Number(b.amount).toLocaleString()}
         ${b.win ? `ถูก จ่าย ${Number(b.payout).toLocaleString()}` : "ไม่ถูก"}
-      </div>
-    `).join("") : "กดตรวจผลเพื่อดูรายการ";
+      </div>`).join("") : "กดตรวจผลเพื่อดูรายการ";
   }
 
   function buildWinningRows(rows){
@@ -692,53 +703,31 @@ button{cursor:pointer}
       summary[key].payout += Number(b.payout);
       summary[key].count += 1;
     });
-    return Object.values(summary).sort((a,b) => b.payout-a.payout);
+    return Object.values(summary).sort((a,b)=>b.payout-a.payout);
   }
 
   function printPdfReport(){
     const hasResult = HOUSES.some(h => (state(h).lastRows||[]).length);
     if(!hasResult) return alert("กดตรวจผลก่อน");
     let html = `<h1>สรุปยอดถูกหวยรัฐบาล แยกบ้าน</h1>`;
-
     HOUSES.forEach((h,idx) => {
       const r = state(h).lastResult || {};
       const rows = buildWinningRows(state(h).lastRows || []);
       const profit = Number(r.profit || 0);
-      html += `<div class="${idx>0?'pageBreak':''}">
-        <h2>${h}</h2>
-        <div>3 ตัวบน: <b>${r.result3||"-"}</b> &nbsp; 2 ตัวบน: <b>${r.result3?String(r.result3).slice(-2):"-"}</b> &nbsp; 2 ตัวล่าง: <b>${r.bottom2||"-"}</b></div>
-        ${rows.length ? `<table>
-          <thead><tr><th>ประเภท</th><th>เลข</th><th>ยอดซื้อที่ถูก</th><th>ยอดจ่ายรวม</th><th>ครั้ง</th></tr></thead>
-          <tbody>${rows.map(x => `<tr><td>${x.type}</td><td>${x.number}</td><td>${x.buy.toLocaleString()}</td><td>${x.payout.toLocaleString()}</td><td>${x.count}</td></tr>`).join("")}</tbody>
-        </table>` : `<p>ไม่มีรายการถูก</p>`}
-        <div class="sum">
-          ยอดขาย: ${Number(r.sale||0).toLocaleString()} บาท<br>
-          หักคนหา: ${Number(r.fee||0).toLocaleString()} บาท (${r.rate||0}%)<br>
-          ยอดหลังหัก: ${Number(r.net||0).toLocaleString()} บาท<br>
-          ยอดจ่ายถูกรวม: ${Number(r.payout||0).toLocaleString()} บาท<br>
-          กำไร/ขาดทุน: ${profit.toLocaleString()} บาท
-        </div>
-      </div>`;
+      html += `<div class="${idx>0?'pageBreak':''}"><h2>${h}</h2><div>3 ตัวบน: <b>${r.result3||"-"}</b> &nbsp; 2 ตัวบน: <b>${r.result3?String(r.result3).slice(-2):"-"}</b> &nbsp; 2 ตัวล่าง: <b>${r.bottom2||"-"}</b></div>
+        ${rows.length ? `<table><thead><tr><th>ประเภท</th><th>เลข</th><th>ยอดซื้อที่ถูก</th><th>ยอดจ่ายรวม</th><th>ครั้ง</th></tr></thead><tbody>${rows.map(x => `<tr><td>${x.type}</td><td>${x.number}</td><td>${x.buy.toLocaleString()}</td><td>${x.payout.toLocaleString()}</td><td>${x.count}</td></tr>`).join("")}</tbody></table>` : `<p>ไม่มีรายการถูก</p>`}
+        <div class="sum">ยอดขาย: ${Number(r.sale||0).toLocaleString()} บาท<br>หักคนหา: ${Number(r.fee||0).toLocaleString()} บาท (${r.rate||0}%)<br>ยอดหลังหัก: ${Number(r.net||0).toLocaleString()} บาท<br>ยอดจ่ายถูกรวม: ${Number(r.payout||0).toLocaleString()} บาท<br>กำไร/ขาดทุน: ${profit.toLocaleString()} บาท</div></div>`;
     });
-
     $("printReport").innerHTML = html;
     window.print();
   }
 
-  function openSlips(){
-    slipsModal.classList.add("show");
-    renderSlipsModal();
-  }
+  function openSlips(){ slipsModal.classList.add("show"); renderSlipsModal(); }
 
   window.viewSlip = no => {
     const s = slips().find(x => x.no === no);
     if(!s) return;
-    $("slipDetail").innerHTML = `<h3>${currentHouse} โพยที่ ${s.no} ${s.name}</h3>
-      <div>${s.date}</div>
-      <b>ยอดขาย ${Number(s.total).toLocaleString()} บาท</b><br>
-      หักคนหา ${Number(s.finderFee||0).toLocaleString()} (${s.finderRate||0}%)<br>
-      ยอดหลังหัก ${Number(s.netSale||s.total).toLocaleString()}
-      ${s.items.map((b,i) => `<div style="padding:6px;border-bottom:1px solid #eee">${i+1}. ${b.type} ${b.number} = ${Number(b.amount).toLocaleString()} ×${b.pay}</div>`).join("")}`;
+    $("slipDetail").innerHTML = `<h3>${currentHouse} โพยที่ ${s.no} ${s.name}</h3><div>${s.date}</div><b>ยอดขาย ${Number(s.total).toLocaleString()} บาท</b><br>หักคนหา ${Number(s.finderFee||0).toLocaleString()} (${s.finderRate||0}%)<br>ยอดหลังหัก ${Number(s.netSale||s.total).toLocaleString()}${s.items.map((b,i) => `<div style="padding:6px;border-bottom:1px solid #eee">${i+1}. ${b.type} ${b.number} = ${Number(b.amount).toLocaleString()} ×${b.pay}</div>`).join("")}`;
   };
 
   window.deleteSlip = no => {
@@ -752,10 +741,7 @@ button{cursor:pointer}
 
   function renderSlipsModal(){
     $("slipsList").innerHTML = slips().length ? slips().slice().reverse().map(s => `
-      <div class="slipItem">
-        <div><b>${currentHouse} โพยที่ ${s.no}</b> ${s.name}<br>${s.date}<br>${s.items.length} รายการ / ${Number(s.total).toLocaleString()} บาท</div>
-        <div><button style="background:#1679f2" onclick="viewSlip(${s.no})">ดู</button><button onclick="deleteSlip(${s.no})">ลบ</button></div>
-      </div>
+      <div class="slipItem"><div><b>${currentHouse} โพยที่ ${s.no}</b> ${s.name}<br>${s.date}<br>${s.items.length} รายการ / ${Number(s.total).toLocaleString()} บาท</div><div><button style="background:#1679f2" onclick="viewSlip(${s.no})">ดู</button><button onclick="deleteSlip(${s.no})">ลบ</button></div></div>
     `).join("") : `ยังไม่มีโพยที่ส่งของ ${currentHouse}`;
   }
 
@@ -766,31 +752,27 @@ button{cursor:pointer}
   }
 
   function renderLeft(){
+    const items = [...drafts().map(x=>({...x,isDraft:true})), ...bets().map(x=>({...x,isDraft:false}))];
     const groups = {};
-    bets().forEach(b => {
+    items.forEach(b => {
       if(!groups[b.type]) groups[b.type] = [];
       groups[b.type].push(b);
     });
 
     $("leftList").innerHTML = Object.keys(groups).sort((a,b)=>order(a)-order(b)).map(type => `
-      <div class="group">
-        <div class="groupTitle">${type}</div>
+      <div class="group"><div class="groupTitle">${type}</div>
         ${groups[type].map((b,i)=>`
-          <div class="betRow">
+          <div class="draftRow">
             <div>${i+1}.</div>
-            <div class="num">${b.number}<div class="amt">${Number(b.amount).toLocaleString()} บ. ×${b.pay}</div></div>
-            <button onclick="deleteBetByGroup('${b.type}','${b.number}')">×</button>
-          </div>
-        `).join("")}
-      </div>
-    `).join("") || `<div style="color:#ddd;font-size:12px;margin-top:12px">ยังไม่มีรายการ</div>`;
+            <div class="num">${b.number}<div class="amt">${b.isDraft?'รอราคา':Number(b.amount).toLocaleString()+' บ. ×'+b.pay}</div></div>
+            <button onclick="${b.isDraft ? `deleteDraftByGroup('${b.type}','${b.number}')` : `deleteBetByGroup('${b.type}','${b.number}')`}">×</button>
+          </div>`).join("")}
+      </div>`).join("") || `<div style="color:#ddd;font-size:12px;margin-top:12px">ยังไม่มีรายการ</div>`;
   }
 
   function renderSaved(){
     $("savedList").innerHTML = slips().length ? slips().slice().reverse().slice(0,5).map(s => `
-      <div style="border-top:1px solid #ddd;padding:6px 0">
-        <b>${currentHouse} โพยที่ ${s.no}</b> ${s.name}<br>${s.date}<br>${s.items.length} รายการ / ${Number(s.total).toLocaleString()} บาท
-      </div>
+      <div style="border-top:1px solid #ddd;padding:6px 0"><b>${currentHouse} โพยที่ ${s.no}</b> ${s.name}<br>${s.date}<br>${s.items.length} รายการ / ${Number(s.total).toLocaleString()} บาท</div>
     `).join("") : `ยังไม่มีโพยที่ส่งของ ${currentHouse}`;
   }
 
@@ -800,7 +782,8 @@ button{cursor:pointer}
     const lr = state().lastResult || {};
     $("sideHouse").textContent = currentHouse;
     $("showHouse").textContent = currentHouse;
-    $("sideCount").textContent = bets().length;
+    $("sideCount").textContent = drafts().length + bets().length;
+    $("draftCountMain").textContent = drafts().length;
     $("count").textContent = bets().length;
     $("sale").textContent = sale.toLocaleString();
     $("sideSale").textContent = sale.toLocaleString();
